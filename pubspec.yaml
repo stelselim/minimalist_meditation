@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   audioplayers: ^0.17.3
+  http: ^0.12.2
   cupertino_icons: ^1.0.0
   flutter_bloc: ^6.1.2
 
