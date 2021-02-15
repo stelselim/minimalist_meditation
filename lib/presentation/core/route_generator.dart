@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meditate/presentation/screens/home/home_screen.dart';
+import 'app_scaffold.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -9,7 +9,7 @@ class RouteGenerator {
 
       /// Authentication
       case "/":
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => AppScaffold());
       // case "/addScenario":
       //   return MaterialPageRoute(builder: (_) => ScenarioAddPage());
       // case "/createEvent":
