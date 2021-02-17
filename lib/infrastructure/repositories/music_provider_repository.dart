@@ -1,10 +1,11 @@
 import 'package:meditate/infrastructure/model/audioplayer_model.dart';
+import 'package:meditate/infrastructure/model/category_model.dart';
 import 'package:meditate/infrastructure/providers/meditation_music_providers.dart';
 
 abstract class MusicProviderRepositoryModel {
   Future<AudioModel> getById(String id);
 
-  Future<List<AudioModel>> getCategory(String categoryId);
+  Future<CategoryModel> getCategory(String categoryId);
 
   Future<List<AudioModel>> updateById(String id);
 
@@ -19,7 +20,7 @@ class MusicProviderRepository with MusicProviderRepositoryModel {
   }
 
   @override
-  Future<List<AudioModel>> getCategory(String categoryId) async {
+  Future<CategoryModel> getCategory(String categoryId) async {
     var response = await getMusicsByCategory(categoryId);
     return response;
   }
