@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meditate/infrastructure/model/category_model.dart';
 import 'package:meditate/infrastructure/repositories/music_provider_repository.dart';
@@ -28,28 +27,22 @@ class MusicProviderBloc extends Bloc<MusicProviderEvent, MusicProviderState> {
   ) async* {
     yield PlaylistFetching();
 
-    // CategoryModel categoryModel = CategoryModel.initialCategory();
     CategoryModel categoryModel;
 
     try {
       if (event is CategorySelected) {
         categoryModel =
             await musicProviderRepository.getCategory(event.categoryId);
-        print("AFTER");
       } else if (event is MoodSelected) {
         categoryModel =
             await musicProviderRepository.getCategoryByMood(event.mood);
-        print("MOODD");
-      }
-      if (categoryModel.categoryAudioList == []) {
-        print("HERER");
-        yield PlaylistEmptyState();
-      } else {
-        print("RETURRNEDD");
-        yield PlaylistFetched(playlistFetched: categoryModel);
       }
 
-      print("FİNİSHED");
+      if (categoryModel.categoryAudioList == []) {
+        yield PlaylistEmptyState();
+      } else {
+        yield PlaylistFetched(playlistFetched: categoryModel);
+      }
     } catch (e) {
       yield PlaylistErrorState(error: e.toString());
     }

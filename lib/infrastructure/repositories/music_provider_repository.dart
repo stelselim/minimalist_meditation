@@ -7,8 +7,6 @@ abstract class MusicProviderRepositoryModel {
 
   Future<CategoryModel> getCategory(String categoryId);
 
-  Future<List<AudioModel>> updateById(String id);
-
   Future<CategoryModel> getCategoryByMood(String mood);
 }
 
@@ -29,10 +27,5 @@ class MusicProviderRepository with MusicProviderRepositoryModel {
   Future<CategoryModel> getCategoryByMood(String mood) async {
     var response = await getMusicsByMood(mood);
     return response;
-  }
-
-  @override
-  Future<List<AudioModel>> updateById(String id) async {
-    return null;
   }
 }

@@ -42,4 +42,18 @@ class AudioModel {
   String toString() {
     return 'AudioModel(id: $id, name: $name, sourceUrl: $sourceUrl, isPlaying: $isPlaying)';
   }
+
+  AudioModel copyWith({
+    String id,
+    String name,
+    String sourceUrl,
+    bool isPlaying,
+  }) {
+    return AudioModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      sourceUrl: sourceUrl ?? this.sourceUrl,
+      isPlaying: isPlaying ?? this.isPlaying,
+    );
+  }
 }
