@@ -14,6 +14,11 @@ class PlaylistFetched extends MusicProviderState {
   });
 }
 
-class PlaylistErrorState extends MusicProviderState {}
+class PlaylistErrorState extends MusicProviderState {
+  final String error;
+  PlaylistErrorState({
+    @required this.error,
+  });
+}
 
 class PlaylistEmptyState extends MusicProviderState {}

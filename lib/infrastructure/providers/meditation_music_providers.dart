@@ -14,3 +14,9 @@ Future<CategoryModel> getMusicsByCategory(String categoryId) async {
   CategoryModel category = jsonDecode(response.body);
   return category;
 }
+
+Future<CategoryModel> getMusicsByMood(String categoryId) async {
+  var response = await http.post(categoryId);
+  CategoryModel category = jsonDecode(response.body);
+  return category;
+}
