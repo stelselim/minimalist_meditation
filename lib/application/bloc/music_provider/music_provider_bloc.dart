@@ -28,20 +28,28 @@ class MusicProviderBloc extends Bloc<MusicProviderEvent, MusicProviderState> {
   ) async* {
     yield PlaylistFetching();
 
+    // CategoryModel categoryModel = CategoryModel.initialCategory();
     CategoryModel categoryModel;
 
     try {
       if (event is CategorySelected) {
         categoryModel =
             await musicProviderRepository.getCategory(event.categoryId);
+        print("AFTER");
       } else if (event is MoodSelected) {
         categoryModel =
             await musicProviderRepository.getCategoryByMood(event.mood);
-      } else if (categoryModel.categoryAudioList != null) {
+        print("MOODD");
+      }
+      if (categoryModel.categoryAudioList == []) {
+        print("HERER");
         yield PlaylistEmptyState();
       } else {
+        print("RETURRNEDD");
         yield PlaylistFetched(playlistFetched: categoryModel);
       }
+
+      print("FİNİSHED");
     } catch (e) {
       yield PlaylistErrorState(error: e.toString());
     }

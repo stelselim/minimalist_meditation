@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:meditate/infrastructure/model/audioplayer_model.dart';
 
 class CategoryModel {
@@ -8,11 +9,18 @@ class CategoryModel {
   final String categoryName;
   final String id;
   CategoryModel({
-    this.categoryAudioList,
-    this.imageUrl,
-    this.categoryName,
-    this.id,
+    @required this.categoryAudioList,
+    @required this.imageUrl,
+    @required this.categoryName,
+    @required this.id,
   });
+
+  factory CategoryModel.initialCategory() => CategoryModel(
+        categoryAudioList: [],
+        imageUrl: "",
+        categoryName: "",
+        id: "",
+      );
 
   CategoryModel copyWith({
     List<AudioModel> categoryAudioList,
