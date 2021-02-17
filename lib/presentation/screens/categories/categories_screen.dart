@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meditate/application/bloc/audio_player/audioplayer_cubit.dart';
 import 'package:meditate/application/bloc/playlist_provider/music_provider_bloc.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -57,6 +58,14 @@ class CategoriesScreen extends StatelessWidget {
               Container(
                 child: Text("HOME"),
               ),
+              TextButton(
+                  onPressed: () {
+                    BlocProvider.of<AudioplayerCubit>(context)
+                        .state
+                        .audioPlayerRepository
+                        .pause();
+                  },
+                  child: Text("STOP MUSIC")),
               TextButton(
                   onPressed: () {
                     BlocProvider.of<MusicProviderBloc>(context)

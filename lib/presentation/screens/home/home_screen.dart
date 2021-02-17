@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meditate/application/bloc/audipplayer/audioplayer_bloc.dart';
+import 'package:meditate/application/bloc/audio_player/audioplayer_cubit.dart';
 import 'package:meditate/infrastructure/dummy_data.dart';
 import 'package:meditate/infrastructure/repositories/audio_player_repository.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
-
-  static final audioPlayerRepository = AudioPlayerRepository();
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AudioplayerBloc, AudioplayerState>(
+    return BlocBuilder<AudioplayerCubit, AudioplayerState>(
       builder: (context, state) {
         return Center(
           child: Column(
             children: [
               Container(
                 child: Text(
-                  audioPlayerRepository.audioPlayer.playerId,
+                  state.audioPlayerRepository.audioPlayer.playerId,
                   textScaleFactor: 2,
                 ),
               ),
@@ -27,22 +24,32 @@ class HomeScreen extends StatelessWidget {
               ),
               TextButton(
                 child: Text("PLAY"),
+                onPressed: () async {
+                  try {
+                    var url = audioModel.sourceUrl;
+                    state.audioPlayerRepository.playUrl(url);
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+              ),
+              TextButton(
+                child: Text("Resume"),
                 onPressed: () {
-                  var url = audioModel.sourceUrl;
-                  audioPlayerRepository.playUrl(url);
+                  state.audioPlayerRepository.resume();
                 },
               ),
               TextButton(
                 child: Text("PAUSE"),
                 onPressed: () {
-                  audioPlayerRepository.pause();
+                  state.audioPlayerRepository.pause();
                 },
               ),
               TextButton(
                 child: Text("Set Notification Bar"),
                 onPressed: () async {
                   try {
-                    await audioPlayerRepository.audioPlayer
+                    await state.audioPlayerRepository.audioPlayer
                         .setNotification(title: "HEY THERE", artist: "get");
                   } catch (e) {
                     print(e);
@@ -53,7 +60,38 @@ class HomeScreen extends StatelessWidget {
                 child: Text("Print Percentage"),
                 onPressed: () async {
                   try {
-                    print(await audioPlayerRepository.getPercentage());
+                    print(await state.audioPlayerRepository.getPercentage());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+              ),
+              TextButton(
+                child: Text("Print Duration & Time"),
+                onPressed: () async {
+                  try {
+                    dynamic currentTime =
+                        await state.audioPlayerRepository.getCurrentTime();
+                    currentTime = Duration(milliseconds: currentTime).inSeconds;
+                    print("Current Time: " + currentTime.toString());
+                    dynamic duration =
+                        await state.audioPlayerRepository.getDuration();
+                    duration = Duration(milliseconds: duration).inSeconds;
+                    print("Duration Time: " + duration.toString());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+              ),
+              TextButton(
+                child: Text("Seek To last 20 secs."),
+                onPressed: () async {
+                  try {
+                    dynamic duration =
+                        await state.audioPlayerRepository.getDuration();
+                    Duration _duration = // minus 20 seconds
+                        Duration(milliseconds: duration - 10000);
+                    await state.audioPlayerRepository.seekTo(_duration);
                   } catch (e) {
                     print(e);
                   }
