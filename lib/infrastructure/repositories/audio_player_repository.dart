@@ -25,16 +25,16 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
     onPlayerComplete(); // When Finished The Audio
     onSeekComplete(); // When Completing to Seek Function
   }
-  onSeekComplete() {
+  void onSeekComplete() {
     audioPlayer.onSeekComplete.listen((event) async {
-      print("SETTT");
+      // print("SETTT");
       await audioPlayer.resume();
     });
   }
 
-  onPlayerComplete() {
+  void onPlayerComplete() {
     audioPlayer.onPlayerCompletion.listen((event) async {
-      print("HEYYY");
+      // print("HEYYY");
       await audioPlayer.seek(Duration(milliseconds: 0));
       await audioPlayer.resume();
     });

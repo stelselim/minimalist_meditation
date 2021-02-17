@@ -8,4 +8,7 @@ class AudioplayerCubit extends Cubit<AudioplayerState> {
   AudioplayerCubit() : super(AudioplayerInitial());
 
   get audioPlayerRepository => state.audioPlayerRepository;
+
+  // To Update AudioPlayerRepository
+  update() => emit(state);
 }
