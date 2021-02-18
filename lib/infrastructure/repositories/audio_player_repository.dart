@@ -12,10 +12,12 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
   @override
   void onSeekComplete() {
     audioPlayer.onSeekComplete.listen((event) async {
-      // print("SETTT");
       await audioPlayer.resume();
     });
   }
+
+  bool isPlaying() =>
+      audioPlayer.state != AudioPlayerState.PLAYING ? true : false;
 
   @override
   void onPlayerComplete() {

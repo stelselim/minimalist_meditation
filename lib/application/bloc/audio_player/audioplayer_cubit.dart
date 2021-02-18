@@ -7,7 +7,8 @@ part 'audioplayer_state.dart';
 class AudioplayerCubit extends Cubit<AudioplayerState> {
   AudioplayerCubit() : super(AudioplayerInitial());
 
-  get audioPlayerRepository => state.audioPlayerRepository;
+  AudioPlayerRepository get audioPlayerRepository =>
+      state.audioPlayerRepository;
 
   // To Update AudioPlayerRepository
   update() => emit(state);
