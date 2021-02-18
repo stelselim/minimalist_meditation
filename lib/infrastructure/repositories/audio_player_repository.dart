@@ -1,22 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
-
-abstract class AudioPlayerRepositoryModel {
-  void playUrl(String url);
-
-  void resume();
-
-  void pause();
-
-  void stop();
-
-  Future<int> getDuration();
-
-  Future<int> getCurrentTime();
-
-  Future<double> getPercentage();
-
-  Future<int> seekTo(Duration position);
-}
+import 'package:meditate/domain/audio_player.dart';
 
 class AudioPlayerRepository with AudioPlayerRepositoryModel {
   AudioPlayer audioPlayer;
