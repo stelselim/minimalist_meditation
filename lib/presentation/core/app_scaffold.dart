@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meditate/application/bloc/bottomNavBar/bottomnavbar_cubit.dart';
+import 'package:meditate/constant/routes/routes.dart';
 
 import 'package:meditate/presentation/screens/screens.dart';
 
@@ -24,7 +25,9 @@ class AppScaffold extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, playerScreenRoute);
+            },
           ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state.index,

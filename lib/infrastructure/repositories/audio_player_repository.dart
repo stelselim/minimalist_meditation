@@ -8,6 +8,8 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
     onPlayerComplete(); // When Finished The Audio
     onSeekComplete(); // When Completing to Seek Function
   }
+
+  @override
   void onSeekComplete() {
     audioPlayer.onSeekComplete.listen((event) async {
       // print("SETTT");
@@ -15,6 +17,7 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
     });
   }
 
+  @override
   void onPlayerComplete() {
     audioPlayer.onPlayerCompletion.listen((event) async {
       // print("HEYYY");

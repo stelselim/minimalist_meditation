@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meditate/presentation/animations/page_transitions.dart';
+import 'package:meditate/presentation/screens/player/player_screen.dart';
 import 'app_scaffold.dart';
 
 class RouteGenerator {
@@ -10,10 +12,9 @@ class RouteGenerator {
       /// Authentication
       case "/":
         return MaterialPageRoute(builder: (_) => AppScaffold());
-      // case "/addScenario":
-      //   return MaterialPageRoute(builder: (_) => ScenarioAddPage());
-      // case "/createEvent":
-      //   return MaterialPageRoute(builder: (_) => CreateEventPage());
+      case "/player":
+        // return createBottomToTopTransitionRoute(PlayerScreen());
+        return MaterialPageRoute(builder: (_) => PlayerScreen());
 
       default: // If Route Not Found => Error Route
         return _errorRoute();

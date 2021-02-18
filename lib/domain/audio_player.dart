@@ -7,6 +7,10 @@ abstract class AudioPlayerRepositoryModel {
 
   void stop();
 
+  void onSeekComplete();
+
+  void onPlayerComplete();
+
   Future<int> getDuration();
 
   Future<int> getCurrentTime();

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meditate/application/bloc/audio_player/audioplayer_cubit.dart';
 import 'package:meditate/infrastructure/dummy_data.dart';
-import 'package:meditate/infrastructure/repositories/audio_player_repository.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
