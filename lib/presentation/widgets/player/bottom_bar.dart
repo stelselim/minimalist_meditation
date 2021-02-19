@@ -22,7 +22,7 @@ class BottomBar extends StatelessWidget {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              "Go Somewhere",
+              "See Playlist",
               style: TextStyle(color: Colors.red),
               textScaleFactor: textScaleFactor,
             ),

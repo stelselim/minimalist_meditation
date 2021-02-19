@@ -1,15 +1,16 @@
 import 'package:audioplayers/audioplayers.dart';
 
 import 'package:meditate/domain/audio_player.dart';
-import 'package:meditate/infrastructure/model/audioplayer_model.dart';
+import 'package:meditate/infrastructure/dummy_data.dart';
 
 class AudioPlayerRepository with AudioPlayerRepositoryModel {
   AudioPlayer audioPlayer;
 
   AudioPlayerRepository() {
     this.audioPlayer = AudioPlayer();
+    audioPlayer.setUrl(audioModel.sourceUrl);
     onPlayerComplete(); // When Finished The Audio
-    onSeekComplete(); // When Completing to Seek Function
+    // onSeekComplete(); // When Completing to Seek Function
   }
 
   @override
@@ -93,10 +94,10 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
   }
 
   @override
-  Future<double> getPercentage() async {
+  Future<int> getPercentage() async {
     var time = await audioPlayer.getCurrentPosition();
     var duration = await audioPlayer.getDuration();
-    var percentage = (time / duration) * 100.roundToDouble();
+    var percentage = (time ~/ duration) * 100.round();
     return percentage;
   }
 

@@ -5,12 +5,15 @@ part 'audio_model_state.dart';
 class AudioModelCubit extends Cubit<AudioModelState> {
   AudioModelCubit()
       : super(AudioModelState(
-            audioModel: AudioModel(
-          id: "",
-          isPlaying: false,
-          name: "",
-          sourceUrl: "",
-        )));
+          currentSong: AudioModel(
+            id: "",
+            isPlaying: false,
+            name: "",
+            sourceUrl: "",
+          ),
+          playlist: [],
+        ));
 
-  update(AudioModel audioModel) => emit(state.copyWith(audioModel: audioModel));
+  update({AudioModel currentSong, List<AudioModel> playlist}) =>
+      emit(state.copyWith(currentSong: currentSong, playlist: playlist));
 }

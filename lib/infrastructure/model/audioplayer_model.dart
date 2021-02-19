@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class AudioModel {
+import 'package:equatable/equatable.dart';
+
+class AudioModel extends Equatable {
   final String id;
   final String name;
   final String sourceUrl;
@@ -56,4 +58,7 @@ class AudioModel {
       isPlaying: isPlaying ?? this.isPlaying,
     );
   }
+
+  @override
+  List<Object> get props => throw UnimplementedError();
 }

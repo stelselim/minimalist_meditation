@@ -14,18 +14,18 @@ class PlayerControllers extends StatelessWidget {
   void goForwardTenSeconds(AudioPlayerRepository audioPlayerRepository) async {
     var time = await audioPlayerRepository.getCurrentTime();
     var duration = await audioPlayerRepository.getDuration();
-    if (duration > time + 10) {
-      await audioPlayerRepository.seekTo(Duration(milliseconds: time + 10));
+    if (duration > time + 10000) {
+      await audioPlayerRepository.seekTo(Duration(milliseconds: time + 10000));
     } else {
-      await audioPlayerRepository.seekTo(Duration(milliseconds: time + 9));
+      await audioPlayerRepository.seekTo(Duration(milliseconds: time + 9000));
     }
   }
 
   void goBackTenSeconds(AudioPlayerRepository audioPlayerRepository) async {
     var time = await audioPlayerRepository.getCurrentTime();
 
-    if (time > 10) {
-      await audioPlayerRepository.seekTo(Duration(milliseconds: time - 10));
+    if (time > 10000) {
+      await audioPlayerRepository.seekTo(Duration(milliseconds: time - 10000));
     } else {
       await audioPlayerRepository.seekTo(Duration(milliseconds: 0));
     }
@@ -65,8 +65,8 @@ class PlayerControllers extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Center(
-              child: IconButton(
-                icon: Icon(
+              child: TextButton(
+                child: Icon(
                   Icons.skip_previous_rounded,
                   size: iconSize,
                   color: iconColor,
@@ -78,8 +78,8 @@ class PlayerControllers extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Center(
-              child: IconButton(
-                icon: Icon(
+              child: TextButton(
+                child: Icon(
                   Icons.replay_10,
                   size: iconSize,
                   color: iconColor,
@@ -93,8 +93,8 @@ class PlayerControllers extends StatelessWidget {
             child: Center(
               child: BlocBuilder<AudioModelCubit, AudioModelState>(
                 builder: (context, state) {
-                  return IconButton(
-                    icon: state.audioModel.isPlaying
+                  return TextButton(
+                    child: state.currentSong.isPlaying
                         ? Icon(
                             Icons.pause_circle_filled,
                             size: iconSize,
@@ -108,8 +108,8 @@ class PlayerControllers extends StatelessWidget {
                     onPressed: () {
                       playArrow(audioPlayerRepository);
                       BlocProvider.of<AudioModelCubit>(context).update(
-                        state.audioModel
-                            .copyWith(isPlaying: !state.audioModel.isPlaying),
+                        currentSong: state.currentSong
+                            .copyWith(isPlaying: !state.currentSong.isPlaying),
                       );
                     },
                   );
@@ -120,8 +120,8 @@ class PlayerControllers extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Center(
-              child: IconButton(
-                icon: Icon(
+              child: TextButton(
+                child: Icon(
                   Icons.forward_10,
                   size: iconSize,
                   color: iconColor,
@@ -133,8 +133,8 @@ class PlayerControllers extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Center(
-              child: IconButton(
-                icon: Icon(
+              child: TextButton(
+                child: Icon(
                   Icons.skip_next_rounded,
                   size: iconSize,
                   color: iconColor,

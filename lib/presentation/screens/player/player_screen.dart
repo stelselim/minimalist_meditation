@@ -25,7 +25,7 @@ class PlayerScreen extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.08,
             ),
             Expanded(
-              flex: 4,
+              flex: 5,
               child: PlayerAvatar(),
             ),
             SizedBox(
@@ -36,21 +36,21 @@ class PlayerScreen extends StatelessWidget {
               child: SongTitle(),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: ProgressBar(),
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: PlayerControllers(),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: BottomBar(),
             ),
           ],

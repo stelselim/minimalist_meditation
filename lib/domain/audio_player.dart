@@ -17,7 +17,7 @@ abstract class AudioPlayerRepositoryModel {
 
   Future<int> getCurrentTime();
 
-  Future<double> getPercentage();
+  Future<int> getPercentage();
 
   Future<int> seekTo(Duration position);
 }
