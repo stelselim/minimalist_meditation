@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meditate/application/bloc/audio_model_cubit/audio_model_cubit.dart';
 import 'package:meditate/application/bloc/audio_player/audioplayer_cubit.dart';
 import 'package:meditate/application/bloc/bottomNavBar/bottomnavbar_cubit.dart';
 
@@ -18,6 +19,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => BottomnavbarCubit()),
+        BlocProvider(create: (_) => AudioModelCubit()),
         BlocProvider(create: (_) => AudioplayerCubit()),
         BlocProvider(create: (_) => MusicProviderBloc(musicProviderRepository)),
         BlocProvider(create: (_) => SongProviderCubit(musicProviderRepository)),

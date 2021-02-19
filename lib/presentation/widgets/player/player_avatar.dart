@@ -8,6 +8,7 @@ class PlayerAvatar extends StatelessWidget {
     return Container(
       child: CircleAvatar(
         maxRadius: MediaQuery.of(context).size.width * 0.5,
+        child: Text("Simple Meditation"),
       ),
     );
   }

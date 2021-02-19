@@ -7,6 +7,8 @@ abstract class AudioPlayerRepositoryModel {
 
   void stop();
 
+  bool isPlaying();
+
   void onSeekComplete();
 
   void onPlayerComplete();

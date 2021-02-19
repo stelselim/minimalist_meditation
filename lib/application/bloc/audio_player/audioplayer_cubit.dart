@@ -10,6 +10,9 @@ class AudioplayerCubit extends Cubit<AudioplayerState> {
   AudioPlayerRepository get audioPlayerRepository =>
       state.audioPlayerRepository;
 
-  // To Update AudioPlayerRepository
-  update() => emit(state);
+  @override
+  Future<void> close() {
+    state.audioPlayerRepository.audioPlayer.dispose();
+    return super.close();
+  }
 }

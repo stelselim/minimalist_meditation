@@ -1,8 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
+
 import 'package:meditate/domain/audio_player.dart';
+import 'package:meditate/infrastructure/model/audioplayer_model.dart';
 
 class AudioPlayerRepository with AudioPlayerRepositoryModel {
   AudioPlayer audioPlayer;
+
   AudioPlayerRepository() {
     this.audioPlayer = AudioPlayer();
     onPlayerComplete(); // When Finished The Audio
@@ -16,9 +19,6 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
     });
   }
 
-  bool isPlaying() =>
-      audioPlayer.state != AudioPlayerState.PLAYING ? true : false;
-
   @override
   void onPlayerComplete() {
     audioPlayer.onPlayerCompletion.listen((event) async {
@@ -27,6 +27,38 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
       await audioPlayer.resume();
     });
   }
+
+  // For Progress Bar
+  void onAudioPositionChange() {
+    audioPlayer.onAudioPositionChanged.listen((event) async {
+      // print("HEYYY");
+      await audioPlayer.seek(Duration(milliseconds: 0));
+      await audioPlayer.resume();
+    });
+  }
+
+  // void onPlayerStateChanged() {
+  //   audioPlayer.onPlayerStateChanged.listen((event) async {
+  //     if (event == AudioPlayerState.PLAYING) {
+  //       var duration = await this.getDuration();
+  //       var time = await this.getCurrentTime();
+
+  //       audioPlayer.setNotification(
+  //         title: audioModel.name,
+  //         duration: Duration(milliseconds: duration),
+  //         backwardSkipInterval: Duration(seconds: 10),
+  //         forwardSkipInterval: Duration(seconds: 10),
+  //         elapsedTime: Duration(milliseconds: time),
+  //         hasNextTrack: true,
+  //         hasPreviousTrack: true,
+  //       );
+  //     }
+  //   });
+  // }
+
+  @override
+  bool isPlaying() =>
+      audioPlayer.state != AudioPlayerState.PLAYING ? true : false;
 
   @override
   void playUrl(String url) async {
@@ -69,12 +101,12 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
   }
 
   @override
+  // In milliseconds
   Future<int> seekTo(Duration position) async {
     var response = await audioPlayer.seek(position);
     return response;
   }
 }
-
 // Play URL
 // Resume
 // Pause
