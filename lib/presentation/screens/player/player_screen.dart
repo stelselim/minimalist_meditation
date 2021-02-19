@@ -19,7 +19,7 @@ class PlayerScreen extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: AppIcon(),
+              child: AppIconPlayer(),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.08,

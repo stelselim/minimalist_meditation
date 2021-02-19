@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meditate/application/bloc/bottomNavBar/bottomnavbar_cubit.dart';
 import 'package:meditate/constant/routes/routes.dart';
+import 'package:meditate/constant/styles/color.dart';
 
 import 'package:meditate/presentation/screens/screens.dart';
 
@@ -13,16 +16,16 @@ class AppScaffold extends StatelessWidget {
     return BlocBuilder<BottomnavbarCubit, BottomnavbarState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text("HELLO"),
-          ),
-          body: IndexedStack(
-            index: state.index,
-            children: [
-              HomeScreen(),
-              CategoriesScreen(),
-              StatsScreen(),
-            ],
+          backgroundColor: backgroundColor,
+          body: SafeArea(
+            child: IndexedStack(
+              index: state.index,
+              children: [
+                HomeScreen(),
+                CategoriesScreen(),
+                StatsScreen(),
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
@@ -30,20 +33,34 @@ class AppScaffold extends StatelessWidget {
             },
           ),
           bottomNavigationBar: BottomNavigationBar(
+            showUnselectedLabels: false,
+            iconSize: 30,
+            selectedItemColor: Colors.white,
+            elevation: 0,
+            backgroundColor: backgroundColor,
             currentIndex: state.index,
             onTap: (index) =>
                 BlocProvider.of<BottomnavbarCubit>(context).changeScreen(index),
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(
+                  FontAwesomeIcons.home,
+                  color: Colors.white,
+                ),
                 label: "Home",
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.category),
+                icon: Icon(
+                  Icons.category_rounded,
+                  color: Colors.white,
+                ),
                 label: "Category",
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.show_chart),
+                icon: Icon(
+                  CupertinoIcons.chart_bar_alt_fill,
+                  color: Colors.white,
+                ),
                 label: "Stats",
               ),
             ],

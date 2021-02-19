@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditate/presentation/widgets/general/header_bar.dart';
 
 class StatsScreen extends StatelessWidget {
   const StatsScreen({Key key}) : super(key: key);
@@ -6,8 +7,13 @@ class StatsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        child: Text("STAT"),
+      child: Column(
+        children: [
+          Expanded(
+            flex: 2,
+            child: HeaderBar(),
+          ),
+        ],
       ),
     );
   }
