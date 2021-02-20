@@ -28,15 +28,17 @@ class AppScaffold extends StatelessWidget {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.lightBlueAccent.shade700,
-            child: AppIconPlayerWithSize(
-              size: 40,
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, playerScreenRoute);
-            },
-          ),
+          floatingActionButton: state.index == 2
+              ? null
+              : FloatingActionButton(
+                  backgroundColor: Colors.lightBlueAccent.shade700,
+                  child: AppIconPlayerWithSize(
+                    size: 40,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, playerScreenRoute);
+                  },
+                ),
           bottomNavigationBar: BottomNavigationBar(
             showUnselectedLabels: false,
             iconSize: 30,

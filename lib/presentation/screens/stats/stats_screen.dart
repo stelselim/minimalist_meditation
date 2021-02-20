@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:meditate/constant/styles/color.dart';
 import 'package:meditate/presentation/widgets/general/app_icon.dart';
 import 'package:meditate/presentation/widgets/player/player_avatar.dart';
+import 'package:meditate/presentation/widgets/stats/a.dart';
 import 'package:meditate/presentation/widgets/stats/name_text.dart';
+import 'package:meditate/presentation/widgets/stats/total_time.dart';
 
 class StatsScreen extends StatefulWidget {
   const StatsScreen({Key key}) : super(key: key);
@@ -52,7 +54,7 @@ class _StatsScreenState extends State<StatsScreen>
             nameText: "Selim Üstel",
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.03,
+            height: MediaQuery.of(context).size.height * 0.02,
           ),
           TabBar(
             controller: tabController,
@@ -80,13 +82,14 @@ class _StatsScreenState extends State<StatsScreen>
               controller: tabController,
               children: [
                 Container(
+                  padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
                   alignment: Alignment.center,
-                  child: Text("HEY"),
+                  child: BarChartSample2(),
                 ),
                 Container(
-                  alignment: Alignment.center,
-                  child: Text("HEY"),
-                ),
+                    padding: EdgeInsets.all(15),
+                    alignment: Alignment.center,
+                    child: TotalTime()),
               ],
             ),
           ),
