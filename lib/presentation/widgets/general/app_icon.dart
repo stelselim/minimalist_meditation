@@ -51,3 +51,20 @@ class AppIconPlayer extends StatelessWidget {
     );
   }
 }
+
+class AppIconBig extends StatelessWidget {
+  const AppIconBig({Key key, this.size}) : super(key: key);
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Icon(
+        Icons.nightlight_round,
+        size: size ?? 120,
+        color: Colors.white,
+      ),
+    );
+  }
+}
