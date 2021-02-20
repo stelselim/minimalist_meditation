@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TotalTime extends StatelessWidget {
-  const TotalTime({Key key}) : super(key: key);
+class TotalTimeTab extends StatelessWidget {
+  const TotalTimeTab({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

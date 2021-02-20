@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meditate/constant/styles/color.dart';
 import 'package:meditate/presentation/widgets/general/app_icon.dart';
 import 'package:meditate/presentation/widgets/player/player_avatar.dart';
-import 'package:meditate/presentation/widgets/stats/a.dart';
 import 'package:meditate/presentation/widgets/stats/name_text.dart';
+import 'package:meditate/presentation/widgets/stats/statistics_chart.dart';
 import 'package:meditate/presentation/widgets/stats/total_time.dart';
 
 class StatsScreen extends StatefulWidget {
@@ -84,12 +84,13 @@ class _StatsScreenState extends State<StatsScreen>
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
                   alignment: Alignment.center,
-                  child: BarChartSample2(),
+                  child: StatisticsChartTab(),
                 ),
                 Container(
-                    padding: EdgeInsets.all(15),
-                    alignment: Alignment.center,
-                    child: TotalTime()),
+                  padding: EdgeInsets.all(15),
+                  alignment: Alignment.center,
+                  child: TotalTimeTab(),
+                ),
               ],
             ),
           ),
