@@ -53,9 +53,10 @@ class AppIconPlayer extends StatelessWidget {
 }
 
 class AppIconBig extends StatelessWidget {
-  const AppIconBig({Key key, this.size}) : super(key: key);
+  const AppIconBig({Key key, this.size, this.color}) : super(key: key);
 
   final double size;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,45 @@ class AppIconBig extends StatelessWidget {
       child: Icon(
         Icons.nightlight_round,
         size: size ?? 120,
-        color: Colors.white,
+        color: color ?? Colors.white,
+      ),
+    );
+  }
+}
+
+class AppIconPlayerWithSize extends StatelessWidget {
+  const AppIconPlayerWithSize({Key key, this.size}) : super(key: key);
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Stack(
+        fit: StackFit.expand,
+        alignment: Alignment.center,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Icon(
+              FontAwesomeIcons.solidMoon,
+              size: size,
+              color: Colors.red,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            top: 20,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: Icon(
+                FontAwesomeIcons.music,
+                size: size / 2,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

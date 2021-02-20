@@ -7,6 +7,7 @@ import 'package:meditate/constant/routes/routes.dart';
 import 'package:meditate/constant/styles/color.dart';
 
 import 'package:meditate/presentation/screens/screens.dart';
+import 'package:meditate/presentation/widgets/general/app_icon.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({Key key}) : super(key: key);
@@ -28,6 +29,10 @@ class AppScaffold extends StatelessWidget {
             ),
           ),
           floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.lightBlueAccent.shade700,
+            child: AppIconPlayerWithSize(
+              size: 40,
+            ),
             onPressed: () {
               Navigator.pushNamed(context, playerScreenRoute);
             },
