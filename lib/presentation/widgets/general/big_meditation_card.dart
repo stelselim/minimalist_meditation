@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meditate/constant/styles/color.dart' as appcolor;
+import 'package:meditate/infrastructure/model/category_model.dart';
+import 'package:meditate/presentation/utility/go_playlist.dart';
 
 class BigMeditationCard extends StatelessWidget {
+  final CategoryModel categoryModel;
   const BigMeditationCard({
     Key key,
-    @required this.onPressFunction,
-    @required this.cardImageUrl,
-    @required this.cardTitle,
-    @required this.cardDescription,
+    @required this.categoryModel,
   }) : super(key: key);
 
   static const backgroundColor = Color.fromRGBO(247, 243, 240, 1);
@@ -34,13 +34,12 @@ class BigMeditationCard extends StatelessWidget {
     color: Colors.white,
   );
 
-  final Function onPressFunction;
-  final String cardImageUrl;
-  final String cardTitle;
-  final String cardDescription;
-
   @override
   Widget build(BuildContext context) {
+    final String cardImageUrl = categoryModel.imageUrl;
+    final String cardTitle = categoryModel.categoryName;
+    final String cardDescription = categoryModel.categoryName;
+
     return Container(
       height: 180,
       decoration: BoxDecoration(
@@ -117,7 +116,10 @@ class BigMeditationCard extends StatelessWidget {
                         ),
                         onPressed: () {
                           try {
-                            onPressFunction();
+                            goToPlaylistPage(
+                              context: context,
+                              playlist: categoryModel,
+                            );
                           } catch (e) {
                             print(e);
                           }

@@ -23,7 +23,7 @@ class CategoryCard extends StatelessWidget {
     );
 
     return TextButton(
-      onPressed: () => onPressFunction,
+      onPressed: onPressFunction,
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

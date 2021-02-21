@@ -8,75 +8,75 @@ class PlaylistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: BlocBuilder<MusicProviderBloc, MusicProviderState>(
-        builder: (context, state) {
-          if (state is PlaylistUnitiliazed) {
-            // Get Categories
-            BlocProvider.of<MusicProviderBloc>(context)
-                .add(CategorySelected(categoryId: "categoryId"));
-            return CircularProgressIndicator();
-          }
-          if (state is PlaylistFetching) {
-            return CircularProgressIndicator();
-          }
+    return Scaffold(
+      body: Container(
+        child: BlocBuilder<MusicProviderBloc, MusicProviderState>(
+          builder: (context, state) {
+            if (state is PlaylistUnitiliazed) {
+              Navigator.pop(context);
+              return CircularProgressIndicator();
+            }
+            if (state is PlaylistFetching) {
+              return CircularProgressIndicator();
+            }
 
-          if (state is PlaylistErrorState) {
-            Fluttertoast.showToast(msg: "An Error Occured");
+            if (state is PlaylistErrorState) {
+              Fluttertoast.showToast(msg: "An Error Occured");
+              return Container(
+                child: Text("An Error Occured"),
+              );
+            }
+
+            if (state is PlaylistEmptyState) {
+              return Center(
+                child: Text("Categories not found!"),
+              );
+            }
+
+            if (state is PlaylistFetched) {
+              return Center(
+                child: Column(
+                  children: [
+                    Text(
+                      state.playlistFetched.categoryName,
+                      textScaleFactor: 2,
+                    ),
+                    Text(
+                      state.playlistFetched.id,
+                      textScaleFactor: 2,
+                    ),
+                    Image.network(state.playlistFetched.imageUrl),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      state.playlistFetched.categoryAudioList.first.name,
+                      textScaleFactor: 2,
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      state.playlistFetched.categoryAudioList.elementAt(1).name,
+                      textScaleFactor: 2,
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text("GET BACK"),
+                    ),
+                  ],
+                ),
+              );
+            }
+
             return Container(
               child: Text("An Error Occured"),
             );
-          }
-
-          if (state is PlaylistEmptyState) {
-            return Center(
-              child: Text("Categories not found!"),
-            );
-          }
-
-          if (state is PlaylistFetched) {
-            return Center(
-              child: Column(
-                children: [
-                  Text(
-                    state.playlistFetched.categoryName,
-                    textScaleFactor: 2,
-                  ),
-                  Text(
-                    state.playlistFetched.id,
-                    textScaleFactor: 2,
-                  ),
-                  Image.network(state.playlistFetched.imageUrl),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Text(
-                    state.playlistFetched.categoryAudioList.first.name,
-                    textScaleFactor: 2,
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Text(
-                    state.playlistFetched.categoryAudioList.elementAt(1).name,
-                    textScaleFactor: 2,
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text("GET BACK"),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          return Container(
-            child: Text("An Error Occured"),
-          );
-        },
+          },
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditate/presentation/animations/page_transitions.dart';
 import 'package:meditate/presentation/screens/player/player_screen.dart';
+import 'package:meditate/presentation/screens/player/playlist_screen.dart';
 import 'app_scaffold.dart';
 
 class RouteGenerator {
@@ -14,7 +15,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AppScaffold());
       case "/player":
         return createBottomToTopTransitionRoute(PlayerScreen());
-      // return MaterialPageRoute(builder: (_) => PlayerScreen());
+      case "/playlist":
+        // return createBottomToTopTransitionRoute(PlaylistScreen());
+        return MaterialPageRoute(builder: (_) => PlaylistScreen());
 
       default: // If Route Not Found => Error Route
         return _errorRoute();

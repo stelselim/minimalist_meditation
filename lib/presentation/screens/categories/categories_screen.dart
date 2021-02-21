@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meditate/application/bloc/get_all_playlist/get_all_playlists_bloc.dart';
 import 'package:meditate/application/bloc/playlist_provider/music_provider_bloc.dart';
+import 'package:meditate/presentation/utility/go_playlist.dart';
 import 'package:meditate/presentation/widgets/categories/category_card.dart';
 import 'package:meditate/presentation/widgets/categories/category_text.dart';
 import 'package:meditate/presentation/widgets/general/header_bar.dart';
@@ -65,14 +66,11 @@ class CategoriesScreen extends StatelessWidget {
                     ),
                     itemCount: state.categoryList.length,
                     itemBuilder: (context, index) {
-                      var playlist = state.categoryList.elementAt(index);
                       return CategoryCard(
-                        onPressFunction: () {
-                          BlocProvider.of<MusicProviderBloc>(context).add(
-                            SetPlaylist(categoryModel: playlist),
-                          );
-                          Navigator.pushNamed(context, "/playlist");
-                        },
+                        onPressFunction: () => goToPlaylistPage(
+                          context: context,
+                          playlist: state.categoryList.elementAt(index),
+                        ),
                         categoryModel: state.categoryList.elementAt(index),
                       );
                     },
