@@ -29,6 +29,8 @@ final categoriesList = [
   category2,
   category2,
   category2,
+  category2,
+  category2,
 ];
 
 final audioModel = AudioModel(

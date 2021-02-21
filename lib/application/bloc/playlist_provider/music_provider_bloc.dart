@@ -37,6 +37,8 @@ class MusicProviderBloc extends Bloc<MusicProviderEvent, MusicProviderState> {
       } else if (event is MoodSelected) {
         categoryModel =
             await musicProviderRepository.getCategoryByMood(event.mood);
+      } else if (event is SetPlaylist) {
+        categoryModel = event.categoryModel;
       }
 
       if (categoryModel.categoryAudioList == []) {

@@ -10,6 +10,13 @@ class CategorySelected extends MusicProviderEvent {
   }) : assert(categoryId != null);
 }
 
+class SetPlaylist extends MusicProviderEvent {
+  final CategoryModel categoryModel;
+  SetPlaylist({
+    @required this.categoryModel,
+  }) : assert(categoryModel != null);
+}
+
 class MoodSelected extends MusicProviderEvent {
   final String mood;
   MoodSelected({
