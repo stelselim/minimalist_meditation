@@ -13,8 +13,8 @@ class RouteGenerator {
       case "/":
         return MaterialPageRoute(builder: (_) => AppScaffold());
       case "/player":
-        // return createBottomToTopTransitionRoute(PlayerScreen());
-        return MaterialPageRoute(builder: (_) => PlayerScreen());
+        return createBottomToTopTransitionRoute(PlayerScreen());
+      // return MaterialPageRoute(builder: (_) => PlayerScreen());
 
       default: // If Route Not Found => Error Route
         return _errorRoute();

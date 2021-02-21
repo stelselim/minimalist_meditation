@@ -36,7 +36,11 @@ class AppScaffold extends StatelessWidget {
                     size: 40,
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, playerScreenRoute);
+                    try {
+                      Navigator.pushNamed(context, playerScreenRoute);
+                    } catch (e) {
+                      print(e);
+                    }
                   },
                 ),
           bottomNavigationBar: BottomNavigationBar(
@@ -46,8 +50,13 @@ class AppScaffold extends StatelessWidget {
             elevation: 0,
             backgroundColor: backgroundColor,
             currentIndex: state.index,
-            onTap: (index) =>
-                BlocProvider.of<BottomnavbarCubit>(context).changeScreen(index),
+            onTap: (index) {
+              try {
+                BlocProvider.of<BottomnavbarCubit>(context).changeScreen(index);
+              } catch (e) {
+                print(e);
+              }
+            },
             items: [
               BottomNavigationBarItem(
                 icon: Icon(

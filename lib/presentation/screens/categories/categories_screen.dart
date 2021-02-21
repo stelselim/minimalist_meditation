@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meditate/application/bloc/audio_player/audioplayer_cubit.dart';
-import 'package:meditate/application/bloc/playlist_provider/music_provider_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:meditate/application/bloc/get_all_playlist/get_all_playlists_bloc.dart';
 import 'package:meditate/presentation/widgets/general/header_bar.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -11,76 +11,47 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          flex: 2,
-          child: HeaderBar(),
+        HeaderBar(),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.05,
         ),
-        BlocBuilder<MusicProviderBloc, MusicProviderState>(
+        BlocBuilder<GetAllPlaylistsBloc, GetAllPlaylistsState>(
           builder: (context, state) {
-            if (state is PlaylistFetching) {
+            if (state is AllPlaylistFetchingState) {
               return CircularProgressIndicator();
             }
-            if (state is PlaylistFetched) {
+            if (state is AllPlaylistUnitiliazed) {
+              BlocProvider.of<GetAllPlaylistsBloc>(context)
+                  .add(GetAllPlaylists());
+
+              return CircularProgressIndicator();
+            }
+
+            if (state is AllPlaylistErrorState) {
+              Fluttertoast.showToast(msg: "An Error Occured" + state.error);
+              return Container(
+                child: Text("An Error Occured"),
+              );
+            }
+
+            if (state is AllPlaylistEmptyState) {
+              return Center(
+                child: Text("Categories not found!"),
+              );
+            }
+
+            if (state is AllPlaylistFetchedState) {
               return Center(
                 child: Column(
                   children: [
-                    Text(
-                      state.playlistFetched.categoryName,
-                      textScaleFactor: 2,
-                    ),
-                    Text(
-                      state.playlistFetched.id,
-                      textScaleFactor: 2,
-                    ),
-                    Image.network(state.playlistFetched.imageUrl),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      state.playlistFetched.categoryAudioList.first.name,
-                      textScaleFactor: 2,
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      state.playlistFetched.categoryAudioList.elementAt(1).name,
-                      textScaleFactor: 2,
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text("GET BACK"),
-                    ),
+                    Container(),
                   ],
                 ),
               );
             }
 
-            return Center(
-              child: Column(
-                children: [
-                  Container(
-                    child: Text("HOME"),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        BlocProvider.of<AudioplayerCubit>(context)
-                            .state
-                            .audioPlayerRepository
-                            .pause();
-                      },
-                      child: Text("STOP MUSIC")),
-                  TextButton(
-                      onPressed: () {
-                        BlocProvider.of<MusicProviderBloc>(context)
-                            .add(CategorySelected(categoryId: "categoryId"));
-                      },
-                      child: Text("GET LIST")),
-                ],
-              ),
+            return Container(
+              child: Text("An Error Occured"),
             );
           },
         ),

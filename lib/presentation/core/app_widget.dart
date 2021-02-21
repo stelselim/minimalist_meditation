@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meditate/application/bloc/audio_model_cubit/audio_model_cubit.dart';
 import 'package:meditate/application/bloc/audio_player/audioplayer_cubit.dart';
 import 'package:meditate/application/bloc/bottomNavBar/bottomnavbar_cubit.dart';
+import 'package:meditate/application/bloc/get_all_playlist/get_all_playlists_bloc.dart';
 
 import 'package:meditate/application/bloc/playlist_provider/music_provider_bloc.dart';
 import 'package:meditate/application/bloc/song_provider/song_provider_cubit.dart';
@@ -21,6 +22,8 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => BottomnavbarCubit()),
         BlocProvider(create: (_) => AudioModelCubit()),
         BlocProvider(create: (_) => AudioplayerCubit()),
+        BlocProvider(
+            create: (_) => GetAllPlaylistsBloc(musicProviderRepository)),
         BlocProvider(create: (_) => MusicProviderBloc(musicProviderRepository)),
         BlocProvider(create: (_) => SongProviderCubit(musicProviderRepository)),
       ],

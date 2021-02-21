@@ -18,7 +18,8 @@ class MusicProviderBloc extends Bloc<MusicProviderEvent, MusicProviderState> {
   void onTransition(
       Transition<MusicProviderEvent, MusicProviderState> transition) {
     super.onTransition(transition);
-    print(transition);
+    // To see changes
+    // print(transition);
   }
 
   @override

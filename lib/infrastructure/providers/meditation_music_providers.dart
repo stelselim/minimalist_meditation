@@ -7,6 +7,11 @@ import '../dummy_data.dart';
 
 //////// DUMMY FUNCTIONS
 
+Future<List<CategoryModel>> fakeApiGetAllCategories() async {
+  await Future.delayed(Duration(seconds: 1));
+  return categoriesList;
+}
+
 Future<CategoryModel> fakeApiCall() async {
   await Future.delayed(Duration(seconds: 1));
   return category2;
@@ -34,6 +39,14 @@ Future<CategoryModel> getMusicsByCategory(String categoryId) async {
   var response = await fakeApiCall();
   CategoryModel category = response;
   return category;
+}
+
+Future<List<CategoryModel>> getAllPlaylists() async {
+  // var response = await http.post(categoryId);
+  // CategoryModel category = jsonDecode(response.body);
+
+  var response = await fakeApiGetAllCategories();
+  return response;
 }
 
 Future<CategoryModel> getMusicsByMood(String categoryId) async {

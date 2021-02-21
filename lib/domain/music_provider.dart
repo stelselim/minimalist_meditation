@@ -6,5 +6,7 @@ abstract class MusicProviderRepositoryModel {
 
   Future<CategoryModel> getCategory(String categoryId);
 
+  Future<List<CategoryModel>> getAllCategories();
+
   Future<CategoryModel> getCategoryByMood(String mood);
 }

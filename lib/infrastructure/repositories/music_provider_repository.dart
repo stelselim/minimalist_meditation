@@ -17,6 +17,12 @@ class MusicProviderRepository with MusicProviderRepositoryModel {
   }
 
   @override
+  Future<List<CategoryModel>> getAllCategories() async {
+    var response = await getAllPlaylists();
+    return response;
+  }
+
+  @override
   Future<CategoryModel> getCategoryByMood(String mood) async {
     var response = await getMusicsByMood(mood);
     return response;

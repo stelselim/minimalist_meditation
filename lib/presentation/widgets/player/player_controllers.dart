@@ -71,7 +71,13 @@ class PlayerControllers extends StatelessWidget {
                   size: iconSize,
                   color: iconColor,
                 ),
-                onPressed: () => previousArrow(audioPlayerRepository),
+                onPressed: () {
+                  try {
+                    previousArrow(audioPlayerRepository);
+                  } catch (e) {
+                    print(e);
+                  }
+                },
               ),
             ),
           ),
@@ -84,7 +90,13 @@ class PlayerControllers extends StatelessWidget {
                   size: iconSize,
                   color: iconColor,
                 ),
-                onPressed: () => goBackTenSeconds(audioPlayerRepository),
+                onPressed: () {
+                  try {
+                    goBackTenSeconds(audioPlayerRepository);
+                  } catch (e) {
+                    print(e);
+                  }
+                },
               ),
             ),
           ),
@@ -106,11 +118,11 @@ class PlayerControllers extends StatelessWidget {
                             color: iconColor,
                           ),
                     onPressed: () {
-                      playArrow(audioPlayerRepository);
-                      BlocProvider.of<AudioModelCubit>(context).update(
-                        currentSong: state.currentSong
-                            .copyWith(isPlaying: !state.currentSong.isPlaying),
-                      );
+                      try {
+                        playArrow(audioPlayerRepository);
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                   );
                 },
@@ -126,7 +138,13 @@ class PlayerControllers extends StatelessWidget {
                   size: iconSize,
                   color: iconColor,
                 ),
-                onPressed: () => goForwardTenSeconds(audioPlayerRepository),
+                onPressed: () {
+                  try {
+                    goForwardTenSeconds(audioPlayerRepository);
+                  } catch (e) {
+                    print(e);
+                  }
+                },
               ),
             ),
           ),
@@ -139,7 +157,13 @@ class PlayerControllers extends StatelessWidget {
                   size: iconSize,
                   color: iconColor,
                 ),
-                onPressed: () => nextArrow(),
+                onPressed: () {
+                  try {
+                    nextArrow();
+                  } catch (e) {
+                    print(e);
+                  }
+                },
               ),
             ),
           ),
