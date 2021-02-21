@@ -12,10 +12,6 @@ class ProgressBar extends StatelessWidget {
     int durationInMilliseconds = duration;
     double percentage = 100 * current.inMilliseconds / durationInMilliseconds;
 
-    // print("Current Time " + current.inSeconds.toString());
-    // print("Total DUration " + (duration / 1000).toString());
-    // print(percentage);
-
     return percentage;
   }
 

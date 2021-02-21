@@ -18,7 +18,7 @@ class NameText extends StatelessWidget {
     return Container(
       child: Text(
         nameText,
-        textScaleFactor: 2.5,
+        textScaleFactor: 1.75,
         style: nameTextStyle,
       ),
     );

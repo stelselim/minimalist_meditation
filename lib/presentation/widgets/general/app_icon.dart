@@ -31,7 +31,7 @@ class AppIconPlayer extends StatelessWidget {
             child: Icon(
               FontAwesomeIcons.solidMoon,
               size: 75,
-              color: Colors.red,
+              color: Colors.blue,
             ),
           ),
           Positioned(

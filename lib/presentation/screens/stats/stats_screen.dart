@@ -51,7 +51,7 @@ class _StatsScreenState extends State<StatsScreen>
             height: MediaQuery.of(context).size.height * 0.02,
           ),
           NameText(
-            nameText: "Selim Üstel",
+            nameText: "Minimalist Meditation",
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.02,

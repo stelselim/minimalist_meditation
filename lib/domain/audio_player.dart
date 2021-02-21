@@ -11,6 +11,8 @@ abstract class AudioPlayerRepositoryModel {
 
   void onSeekComplete();
 
+  void saveListenTime();
+
   void onPlayerComplete();
 
   Future<int> getDuration();
