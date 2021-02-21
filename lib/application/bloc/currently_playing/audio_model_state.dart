@@ -10,11 +10,14 @@ class AudioModelState {
 
   int get playerIndex {
     int index = 0;
-
-    for (int i = 0; i < playlist.length; i++) {
-      if (currentSong == playlist.elementAt(i)) {
-        index = i;
+    try {
+      for (int i = 0; i < playlist.length; i++) {
+        if (currentSong.sourceUrl == playlist.elementAt(i).sourceUrl) {
+          index = i;
+        }
       }
+    } catch (e) {
+      print(e);
     }
     return index;
   }

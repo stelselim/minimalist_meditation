@@ -1,9 +1,6 @@
 name: meditate
-description: A new Flutter project.
+description: Meditation App built with DDD principles
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -33,6 +30,7 @@ dependencies:
   fluttertoast: ^7.1.8
   google_fonts: ^1.1.2
   fl_chart: ^0.12.3
+  get_it: ^5.0.6
   shared_preferences: ^0.5.12+4
 
 dev_dependencies:

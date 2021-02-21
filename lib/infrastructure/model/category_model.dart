@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:meditate/infrastructure/model/audioplayer_model.dart';
 
-class CategoryModel {
+class CategoryModel with EquatableMixin {
   final List<AudioModel> categoryAudioList;
   final String description;
   final String imageUrl;
@@ -74,4 +75,8 @@ class CategoryModel {
 
   factory CategoryModel.fromJson(String source) =>
       CategoryModel.fromMap(json.decode(source));
+
+  @override
+  // TODO: implement props
+  List<Object> get props => throw UnimplementedError();
 }

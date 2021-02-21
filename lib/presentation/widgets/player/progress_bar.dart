@@ -48,101 +48,117 @@ class ProgressBar extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width * 0.90,
-              child: FutureBuilder<List<int>>(
-                future: Future.wait([
-                  state.audioPlayerRepository.getDuration(),
-                  state.audioPlayerRepository.getCurrentTime(),
-                  state.audioPlayerRepository.getPercentage(),
-                ]),
-                builder: (context, audioDuration) {
-                  if (audioDuration == null || audioDuration.data == null) {
-                    return Container();
-                  }
-                  return StreamBuilder<Duration>(
-                    stream: state.audioPlayerRepository.audioPlayer
-                        .onAudioPositionChanged,
-                    builder: (context, snapshot) {
-                      if (snapshot == null || snapshot.data == null) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Slider(
-                              max: 100.0,
-                              min: 0.0,
-                              value: percentage(
-                                Duration(
-                                    milliseconds: audioDuration
-                                        .data[1]), // LAST CURRENT TIME
-                                audioDuration.data.first, // AUDIO DURATION
-                              ),
-                              onChanged: (percent) {
-                                var changePercent =
-                                    audioDuration.data.first * percent / 100;
-                                state.audioPlayerRepository.seekTo(Duration(
-                                    milliseconds: changePercent.toInt()));
-                              },
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  currentTime(
-                                    Duration(
-                                        milliseconds: audioDuration
-                                            .data[1]), // GET CURRENT TIME
-                                  ),
-                                  style: timeTextStyle,
-                                ),
-                                Text(
-                                  lastTime(Duration(
+              child: StreamBuilder<Duration>(
+                  stream:
+                      state.audioPlayerRepository.audioPlayer.onDurationChanged,
+                  builder: (context, snapshot) {
+                    return FutureBuilder<List<int>>(
+                      future: Future.wait([
+                        state.audioPlayerRepository.getDuration(),
+                        state.audioPlayerRepository.getCurrentTime(),
+                        state.audioPlayerRepository.getPercentage(),
+                      ]),
+                      builder: (context, audioDuration) {
+                        if (audioDuration == null ||
+                            audioDuration.data == null) {
+                          return Container();
+                        }
+                        return StreamBuilder<Duration>(
+                          stream: state.audioPlayerRepository.audioPlayer
+                              .onAudioPositionChanged,
+                          builder: (context, snapshot) {
+                            if (snapshot == null || snapshot.data == null) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Slider(
+                                    max: 100.0,
+                                    min: 0.0,
+                                    value: percentage(
+                                      Duration(
                                           milliseconds: audioDuration
-                                              .data[0]) // GET TOTAL TIME
+                                              .data[1]), // LAST CURRENT TIME
+                                      audioDuration
+                                          .data.first, // AUDIO DURATION
+                                    ),
+                                    onChanged: (percent) {
+                                      var changePercent =
+                                          audioDuration.data.first *
+                                              percent /
+                                              100;
+                                      state.audioPlayerRepository.seekTo(
+                                          Duration(
+                                              milliseconds:
+                                                  changePercent.toInt()));
+                                    },
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        currentTime(
+                                          Duration(
+                                              milliseconds: audioDuration
+                                                  .data[1]), // GET CURRENT TIME
+                                        ),
+                                        style: timeTextStyle,
                                       ),
-                                  style: timeTextStyle,
+                                      Text(
+                                        lastTime(Duration(
+                                                milliseconds: audioDuration
+                                                    .data[0]) // GET TOTAL TIME
+                                            ),
+                                        style: timeTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }
+
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Slider(
+                                  max: 100.0,
+                                  min: 0.0,
+                                  value: percentage(
+                                    snapshot.data,
+                                    audioDuration.data.first,
+                                  ),
+                                  onChanged: (percent) {
+                                    var changePercent =
+                                        audioDuration.data.first *
+                                            percent /
+                                            100;
+                                    state.audioPlayerRepository.seekTo(Duration(
+                                        milliseconds: changePercent.toInt()));
+                                  },
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      currentTime(snapshot.data),
+                                      style: timeTextStyle,
+                                    ),
+                                    Text(
+                                      lastTime(Duration(
+                                          milliseconds:
+                                              audioDuration.data.first)),
+                                      style: timeTextStyle,
+                                    ),
+                                  ],
                                 ),
                               ],
-                            ),
-                          ],
+                            );
+                          },
                         );
-                      }
-
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Slider(
-                            max: 100.0,
-                            min: 0.0,
-                            value: percentage(
-                              snapshot.data,
-                              audioDuration.data.first,
-                            ),
-                            onChanged: (percent) {
-                              var changePercent =
-                                  audioDuration.data.first * percent / 100;
-                              state.audioPlayerRepository.seekTo(Duration(
-                                  milliseconds: changePercent.toInt()));
-                            },
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                currentTime(snapshot.data),
-                                style: timeTextStyle,
-                              ),
-                              Text(
-                                lastTime(Duration(
-                                    milliseconds: audioDuration.data.first)),
-                                style: timeTextStyle,
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      },
+                    );
+                  }),
             ),
           ],
         );

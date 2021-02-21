@@ -1,6 +1,7 @@
 import 'dart:async';
-
 import 'package:audioplayers/audioplayers.dart';
+import 'package:meditate/application/bloc/currently_playing/audio_model_cubit.dart';
+import 'package:meditate/application/service_locator.dart';
 
 import 'package:meditate/domain/audio_player.dart';
 import 'package:meditate/infrastructure/dummy_data.dart';
@@ -25,6 +26,51 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
   }
 
   @override
+  void next() async {
+    var playerAudioModel = getIt<AudioModelCubit>().state;
+
+    // IF Last Element Plays, Come Back To First
+    if (playerAudioModel.playerIndex + 1 == playerAudioModel.playlist.length) {
+      // Update GET IT
+
+      getIt<AudioModelCubit>().update(
+          currentSong: playerAudioModel.playlist.elementAt(0),
+          playlist: playerAudioModel.playlist);
+      playUrl(playerAudioModel.playlist.elementAt(0).sourceUrl);
+    }
+    // Play Next
+    else {
+      // Update GET IT
+
+      var toPlayIndex = playerAudioModel.playerIndex + 1;
+      getIt<AudioModelCubit>().update(
+          currentSong: playerAudioModel.playlist.elementAt(toPlayIndex),
+          playlist: playerAudioModel.playlist);
+      playUrl(playerAudioModel.playlist.elementAt(toPlayIndex).sourceUrl);
+    }
+  }
+
+  @override
+  void previous() async {
+    var playerAudioModel = getIt<AudioModelCubit>().state;
+
+    // Play Previous
+    if (playerAudioModel.playerIndex != 0) {
+      // Update GET IT
+
+      var toPlayIndex = playerAudioModel.playerIndex - 1;
+      getIt<AudioModelCubit>().update(
+          currentSong: playerAudioModel.playlist.elementAt(toPlayIndex),
+          playlist: playerAudioModel.playlist);
+      playUrl(playerAudioModel.playlist.elementAt(toPlayIndex).sourceUrl);
+    }
+    // IF First Element,
+    else {
+      seekTo(Duration(milliseconds: 0));
+    }
+  }
+
+  @override
   void onSeekComplete() {
     audioPlayer.onSeekComplete.listen((event) async {
       await audioPlayer.resume();
@@ -34,8 +80,18 @@ class AudioPlayerRepository with AudioPlayerRepositoryModel {
   @override
   void onPlayerComplete() {
     audioPlayer.onPlayerCompletion.listen((event) async {
-      await audioPlayer.seek(Duration(milliseconds: 0));
-      await audioPlayer.resume();
+      var playerAudioModel = getIt<AudioModelCubit>().state;
+      // IF Last Element Plays, Come Back To First
+      if (playerAudioModel.playerIndex + 1 !=
+          playerAudioModel.playlist.length) {
+        // Update GET IT
+
+        var toPlayIndex = playerAudioModel.playerIndex + 1;
+        getIt<AudioModelCubit>().update(
+            currentSong: playerAudioModel.playlist.elementAt(toPlayIndex),
+            playlist: playerAudioModel.playlist);
+        playUrl(playerAudioModel.playlist.elementAt(toPlayIndex).sourceUrl);
+      }
     });
   }
 

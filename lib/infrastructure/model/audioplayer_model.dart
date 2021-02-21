@@ -7,12 +7,14 @@ class AudioModel extends Equatable {
   final String name;
   final String sourceUrl;
   final bool isPlaying;
+  final String artist;
 
   AudioModel({
     this.id,
     this.name,
     this.sourceUrl,
     this.isPlaying,
+    this.artist,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,6 +23,7 @@ class AudioModel extends Equatable {
       'name': name,
       'sourceUrl': sourceUrl,
       'isPlaying': isPlaying,
+      'artist': artist,
     };
   }
 
@@ -32,6 +35,7 @@ class AudioModel extends Equatable {
       name: map['name'],
       sourceUrl: map['sourceUrl'],
       isPlaying: map['isPlaying'],
+      artist: map['artist'],
     );
   }
 
@@ -50,15 +54,20 @@ class AudioModel extends Equatable {
     String name,
     String sourceUrl,
     bool isPlaying,
+    String artist,
   }) {
     return AudioModel(
       id: id ?? this.id,
       name: name ?? this.name,
       sourceUrl: sourceUrl ?? this.sourceUrl,
       isPlaying: isPlaying ?? this.isPlaying,
+      artist: artist ?? this.artist,
     );
   }
 
   @override
   List<Object> get props => throw UnimplementedError();
+
+  @override
+  bool get stringify => true;
 }

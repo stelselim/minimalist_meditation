@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:meditate/application/bloc/currently_playing/audio_model_cubit.dart';
+import 'package:meditate/application/service_locator.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({Key key}) : super(key: key);
@@ -20,7 +24,21 @@ class BottomBar extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              try {
+                if (getIt<AudioModelCubit>().state.playlist != null) {
+                  Navigator.pop(context);
+                  Navigator.of(context).pushNamed("/playlist");
+                  return;
+                }
+
+                Fluttertoast.showToast(msg: "Select a Playlist!");
+                Navigator.pop(context);
+                Navigator.pop(context);
+              } catch (e) {
+                print(e);
+              }
+            },
             child: Text(
               "See Playlist",
               style: TextStyle(color: Colors.red),

@@ -1,7 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meditate/application/bloc/audio_model_cubit/audio_model_cubit.dart';
 import 'package:meditate/application/bloc/audio_player/audioplayer_cubit.dart';
 import 'package:meditate/infrastructure/repositories/audio_player_repository.dart';
 
@@ -42,15 +41,15 @@ class PlayerControllers extends StatelessWidget {
   void previousArrow(AudioPlayerRepository audioPlayerRepository) async {
     var time = await audioPlayerRepository.getCurrentTime();
 
-    if (time > 7) {
+    if (time > 7000) {
       await audioPlayerRepository.seekTo(Duration(milliseconds: 0));
     } else {
-      // await audioPlayerRepository.previous();
+      audioPlayerRepository.previous();
     }
   }
 
-  void nextArrow() async {
-    // await audioPlayerRepository.next();
+  void nextArrow(AudioPlayerRepository audioPlayerRepository) async {
+    audioPlayerRepository.next();
   }
 
   @override
@@ -103,25 +102,43 @@ class PlayerControllers extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Center(
-              child: BlocBuilder<AudioModelCubit, AudioModelState>(
+              child: BlocBuilder<AudioplayerCubit, AudioplayerState>(
                 builder: (context, state) {
-                  return TextButton(
-                    child: state.currentSong.isPlaying
-                        ? Icon(
+                  return StreamBuilder<AudioPlayerState>(
+                    initialData: state.audioPlayerRepository.audioPlayer.state,
+                    stream: state
+                        .audioPlayerRepository.audioPlayer.onPlayerStateChanged,
+                    builder: (context, snapshot) {
+                      if (snapshot.data == AudioPlayerState.PLAYING)
+                        return TextButton(
+                          child: Icon(
                             Icons.pause_circle_filled,
                             size: iconSize,
                             color: iconColor,
-                          )
-                        : Icon(
-                            Icons.play_circle_fill,
+                          ),
+                          onPressed: () {
+                            try {
+                              playArrow(audioPlayerRepository);
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
+                        );
+                      else {
+                        return TextButton(
+                          child: Icon(
+                            Icons.play_circle_filled,
                             size: iconSize,
                             color: iconColor,
                           ),
-                    onPressed: () {
-                      try {
-                        playArrow(audioPlayerRepository);
-                      } catch (e) {
-                        print(e);
+                          onPressed: () {
+                            try {
+                              playArrow(audioPlayerRepository);
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
+                        );
                       }
                     },
                   );
@@ -159,7 +176,7 @@ class PlayerControllers extends StatelessWidget {
                 ),
                 onPressed: () {
                   try {
-                    nextArrow();
+                    nextArrow(audioPlayerRepository);
                   } catch (e) {
                     print(e);
                   }
