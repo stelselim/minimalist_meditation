@@ -12,6 +12,10 @@ In Flutter development, DDD might be used with different state management librar
 
 <br/>
 
+#### The design of the project is provided from open-source community, [here](https://www.figma.com/community/file/915132326936854738).
+
+<br/>
+
 ## Authors
 
 👤 **Selim Ustel**
